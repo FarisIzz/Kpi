@@ -2,20 +2,21 @@
 @section('title', 'Pengurusan Banduan')
 @section('body')
 
-<table>
+
+<table  style="border: 2px solid black;">
     <thead>
-        <tr>
-            <th>Kod</th>
-            <th>Tajuk KPI</th>
-            <th>Sasaran</th>
+        <tr style="border: 2px solid black;">
+            <th style="border: 2px solid black;">Kod</th>
+            <th style="border: 2px solid black;">Tajuk KPI</th>
+            <th style="border: 2px solid black;">Sasaran</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($data as $item)
         <tr>
-            <td>{{ $item->Kod }}</td>
-            <td>{{ $item->Tajuk_KPI }}</td>
-            <td>{{ $item->Sasaran_KPI }}</td>
+            <td style="border: 2px solid black;">{{ $item->Kod }}</td>
+            <td style="border: 2px solid black;">{{ $item->Tajuk_KPI }}</td>
+            <td style="border: 2px solid black;">{{ $item->Sasaran_KPI }}</td>
         </tr>
         @endforeach
     </tbody>
