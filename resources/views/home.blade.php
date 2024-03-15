@@ -27,15 +27,71 @@
       </div>
     </div>
 </nav> --}}
-<style>
-  .hidden {
-    display: none;
+
+  <style>
+    /* Styling for the main navigation */
+    .navbar-nav {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    button{
+    border-radius: 25px;
+    margin-top: 20px;
+    margin-left: 30px;
   }
 
-  .navbar-nav{
-    color: white;
-  }
+    .nav-item {
+        position: relative;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        transition: background-color 0.3s;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link i {
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    /* Styling for the submenu */
+    #dashboard-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        background-color: #333;
+        border-radius: 8px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+    }
+
+    #dashboard-list li {
+        padding: 10px 20px;
+    }
+
+    #dashboard-list li:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Styling for the hidden class */
+    .hidden {
+        display: none;
+    }
 </style>
+
 
 <body class="g-sidenav-show  bg-gray-200">
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -57,7 +113,8 @@
               </a>
               <ul id="dashboard-list" class="hidden">
                   <li>Keselamatan Inteligen</li>
-                  <li>Banduan</li>
+                  <li>Pengurusan Banduan</li>
+                  <li>Banduan Tahanan Radikal</li>
               </ul>
           </li>
           <li class="nav-item">
