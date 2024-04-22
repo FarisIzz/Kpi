@@ -1,8 +1,6 @@
 @extends('layout')
 @section('title', 'Tahanan Radikal')
 @section('body')
-
-
 <table  style="border: 2px solid black;">
     <thead>
         <tr style="border: 2px solid black;">
@@ -21,5 +19,4 @@
         @endforeach
     </tbody>
 </table>
-
 @endsection

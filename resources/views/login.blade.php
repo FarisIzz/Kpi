@@ -26,6 +26,7 @@
                     <div class="mb-3">
                         <div class="d-grid">
                             <button class="btn btn-primary">Login</button>
+                            <a href="/register">Sign up</a>
                         </div>
                     </div>
                 </form>
