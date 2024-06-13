@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app->singleton('hash', function ($app) {
+            return new \App\Support\Sha512Hasher();
+        });
     }
 }

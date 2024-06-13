@@ -33,23 +33,27 @@ class AuthController extends Controller
     }
  
     public function loginPost(Request $request)
-    {
-        $credetials = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
- 
-        if (Auth::attempt($credetials)) {
-            return redirect('/home')->with('success', 'Login Success');
+{
+    $credentials = [
+        'email' => $request->email,
+        'password' => $request->password,
+    ];
+
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard')->with('success', 'Login Success');
+        } else {
+            return redirect()->route('user.dashboard')->with('success', 'Login Success');
         }
- 
-        return back()->with('error', 'Error Email or Password');
     }
+    return back()->with('error', 'Error Email or Password');
+}
+
  
     public function logout()
     {
         Auth::logout();
- 
         return redirect()->route('login');
     }
 }

@@ -32,6 +32,7 @@
                             <button class="btn btn-primary">Register</button>
                         </div>
                     </div>
+                    <a href="/login">Already Register... </a>
                 </form>
             </div>
         </div>

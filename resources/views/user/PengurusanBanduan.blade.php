@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Keselamatan Inteligen')
+@section('title', 'Pengurusan Banduan')
 @section('body')
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
@@ -78,7 +78,7 @@
                   <div class="mb-3">
                       <h3 class="fw-bold fs-4 mb-3">Sektor Keselamatan</h3><br>
 
-                      <h3 class="fw-bold fs-4 my-3 ki">Keselamatan Inteligen</h3>
+                      <h3 class="fw-bold fs-4 my-3 ki">Pengurusan Banduan</h3>
                       
                       <div class="row">
                         <div class="col-12">

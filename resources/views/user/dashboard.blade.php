@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', 'Home')
+@section('title', 'User Dashboard')
 @section('body')
 <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
@@ -16,7 +16,7 @@
           </div>
           <ul class="sidebar-nav">
               <li class="sidebar-item">
-                  <a href="/home" class="sidebar-link">
+                  <a href="/user/dashboard" class="sidebar-link">
                       <i class="lni lni-dashboard"></i>
                       <span>Dashboard</span>
                   </a>
@@ -76,7 +76,7 @@
           <main class="content px-3 py-4">
               <div class="container-fluid">
                   <div class="mb-3">
-                      <h3 class="fw-bold fs-4 mb-3">Admin Dashboard</h3><br>
+                      <h3 class="fw-bold fs-4 mb-3">User Dashboard</h3><br>
                   </div>
               </div>
           </main>
