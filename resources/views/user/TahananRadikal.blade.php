@@ -1,9 +1,10 @@
 @extends('layout')
 @section('title', 'Tahanan Radikal')
 @section('body')
-<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+
 
 <body>
+    
   <div class="wrapper">
       <aside id="sidebar">
           <div class="d-flex">
