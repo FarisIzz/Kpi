@@ -26,8 +26,14 @@ return new class extends Migration
             $table->string('status');
             $table->timestamps();
         });
+
+        Schema::table('add_kpis', function (Blueprint $table) {
+            $table->string('SO')->default('default_value')->change();
+        });
+        
     }
 
+    
     /**
      * Reverse the migrations.
      */

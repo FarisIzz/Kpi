@@ -10,7 +10,7 @@ class AddKpi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'teras', 'SO', 'negeri', 'pemilik', 'kpi', 'pernyataan_kpi',
+        'teras', 'so', 'negeri', 'pemilik', 'kpi', 'pernyataan_kpi',
         'sasaran', 'jenis_sasaran', 'pencapaian', 'peratus_pencapaian', 'status'
     ];
 }

@@ -7,7 +7,7 @@
             <main class="content px-2 py-4">
                 <div class="container-fluid">
                     <h3 class="fw-bold fs-4">Key Performance Index(KPI)</h3>
-                    <a href="=" class="btn btn-primary mb-2">Add New</a><br>
+                    <a href="{{ route("kpi.add") }}" class="btn btn-primary mb-2">Add New</a><br>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -41,11 +41,11 @@
                                     <td>{{ $addKpi->peratus_pencapaian}}</td>
                                     <td>{{ $addKpi->status}}</td>
                                     <td>
-                                        {{-- <a href="{{ route('addKpis.edit', $addKpi->id) }}" class="btn btn-warning">Edit</a>
-                                        <form action="{{ route('addKpis.destroy', $addKpi->id) }}" method="POST" style="display:inline-block;">
+                                        <a href="" class="btn btn-warning mb-3">Edit</a>
+                                        <form action="" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">Delete</button> --}}
+                                            <button type="submit" class="btn btn-danger">Delete</button> 
                                         </form>
                                     </td>
                                 </tr>

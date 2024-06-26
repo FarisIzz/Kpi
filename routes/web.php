@@ -48,11 +48,6 @@ Route::get('KeselamatanKoreksional/KeselamatanInteligen', [KeselamatanInteligenC
 Route::resource('AddKPI', AddKpiController::class);
 
 
-// Admin can access
-// Route::get('/admin/dashboard', [AdminController::class, 'index'])->middleware('admin')->name('admin.dashboard');
-Route::get('/admin/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index'])->middleware('admin')->name('admin.KeselamatanInteligen');
-Route::get('/admin/PengurusanBanduan', [PengurusanBanduanController::class, 'index'])->middleware('admin')->name('admin.PengurusanBanduan');
-Route::get('/admin/TahananRadikal', [TahananRadikalController::class, 'index'])->middleware('admin')->name('admin.TahananRadikal');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -60,6 +55,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Add other admin routes here
 });
 
+Route::get('/kpi/add', [AddKpiController::class, 'create'])-> name('kpi.add');
+Route::post('admin/add-kpi', [AddKpiController::class, 'store'])->name('admin.add-kpi');
+// Admin can access
+Route::get('/admin/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index'])->middleware('admin')->name('admin.KeselamatanInteligen');
+Route::get('/admin/PengurusanBanduan', [PengurusanBanduanController::class, 'index'])->middleware('admin')->name('admin.PengurusanBanduan');
+Route::get('/admin/TahananRadikal', [TahananRadikalController::class, 'index'])->middleware('admin')->name('admin.TahananRadikal');
 
 //User can access
 Route::get('/user/dashboard', [UserController::class, 'index'])->middleware('user')->name('user.dashboard');
