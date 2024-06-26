@@ -30,7 +30,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $addKpi->teras }}</td>
-                                    <td>{{ $addKpi->so }}</td>
+                                    <td>{{ $addKpi->SO }}</td>
                                     <td>{{ $addKpi->negeri }}</td>
                                     <td>{{ $addKpi->pemilik }}</td>
                                     <td>{{ $addKpi->kpi}}</td>
@@ -41,7 +41,7 @@
                                     <td>{{ $addKpi->peratus_pencapaian}}</td>
                                     <td>{{ $addKpi->status}}</td>
                                     <td>
-                                        <a href="" class="btn btn-warning mb-3">Edit</a>
+                                        <a href="" class="btn btn-warning">Edit</a>
                                         <form action="" method="POST" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')
