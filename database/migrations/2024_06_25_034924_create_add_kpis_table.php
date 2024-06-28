@@ -13,27 +13,17 @@ return new class extends Migration
     {
         Schema::create('add_kpis', function (Blueprint $table) {
             $table->id();
+            $table->integer('bil')->nullable();
             $table->string('teras');
-            $table->string('SO');
-            $table->string('negeri');
-            $table->string('pemilik');
-            $table->string('kpi');
+            $table->string('SO'); 
+            $table->string('kpi'); 
             $table->string('pernyataan_kpi');
             $table->string('sasaran');
             $table->string('jenis_sasaran');
-            $table->string('pencapaian');
-            $table->string('peratus-pencapaian');
-            $table->string('status');
             $table->timestamps();
         });
-
-        Schema::table('add_kpis', function (Blueprint $table) {
-            $table->string('SO')->default('default_value')->change();
-        });
-        
     }
 
-    
     /**
      * Reverse the migrations.
      */

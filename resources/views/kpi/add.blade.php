@@ -1,49 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add New KPI</title>
-</head>
-<body>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <button class="btn btn-success mb-2" onclick="openPopup()">Add New</button>
 
-<h2>Add New KPI</h2>
+        <!-- Popup overlay -->
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup-form">
+                <form action="{{ route('admin.add-kpi') }}" method="POST">
+                    @csrf
+                    <!-- Form fields for adding a new KPI -->
+                    <label for="teras">Teras:</label>
+                    <input type="text" id="teras" name="teras" required><br><br>
+                
+                    <label for="so">SO:</label>
+                    <input type="text" id="so" name="so" required><br><br>
+                
+                    <label for="pernyataan_kpi">Pernyataan KPI:</label>
+                    <input type="text" id="pernyataan_kpi" name="pernyataan_kpi" required><br><br>
 
-<form action="{{ route('admin.add-kpi') }}" method="POST">
-    @csrf
-    <label for="teras">Teras:</label>
-    <input type="text" id="teras" name="teras" required><br><br>
-
-    <label for="so">SO:</label>
-    <input type="text" id="so" name="so" required><br><br>
-
-    <label for="negeri">Negeri:</label>
-    <input type="number" id="negeri" name="negeri" required><br><br>
-
-    <label for="pemilik">Pemilik:</label>
-    <input type="text" id="pemilik" name="pemilik" required><br><br>
-
-    <label for="kpi">KPI:</label>
-    <input type="text" id="kpi" name="kpi" required><br><br>
-
-    <label for="pernyataan_kpi">Pernyataan KPI:</label>
-    <input type="text" id="pernyataan_kpi" name="pernyataan_kpi" required><br><br>
-
-    <label for="sasaran">Sasaran:</label>
-    <input type="text" id="sasaran" name="sasaran" required><br><br>
-
-    <label for="jenis_sasaran">Jenis Sasaran:</label>
-    <input type="text" id="jenis_sasaran" name="jenis_sasaran" required><br><br>
-
-    <label for="pencapaian">Pencapaian:</label>
-    <input type="text" id="pencapaian" name="pencapaian" required><br><br>
-
-    <label for="peratus_pencapaian">Peratus Pencapaian:</label>
-    <input type="text" id="peratus_pencapaian" name="peratus_pencapaian" required><br><br>
-
-    <label for="status">Status:</label>
-    <input type="text" id="status" name="status" required><br><br>
-
-    <button type="submit">Add KPI</button>
-</form>
-
-</body>
-</html>
+                    <label for="sasaran">Sasaran:</label>
+                    <input type="text" id="sasaran" name="sasaran" required><br><br>
+                
+                    <label for="jenis_sasaran">Jenis Sasaran:</label>
+                    <input type="text" id="jenis_sasaran" name="jenis_sasaran" required><br><br>
+                
+                    <!-- Submit button -->
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-success me-2" type="submit">Add</button>
+                        <button class="btn btn-danger" onclick="closePopup()" type="submit">Close</button>
+                    </div>
+                </form>                
+            </div>
+        </div>
+    </div>
+</div> 

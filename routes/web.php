@@ -57,6 +57,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::get('/kpi/add', [AddKpiController::class, 'create'])-> name('kpi.add');
 Route::post('admin/add-kpi', [AddKpiController::class, 'store'])->name('admin.add-kpi');
+Route::delete('/kpi/{addKpi}', [AddKpiController::class, 'destroy'])->name('kpi.destroy');
+Route::get('/admin/add-kpi/{id}/edit', [AddKpiController::class, 'edit'])->name('kpi.edit');
+Route::put('/admin/add-kpi/{id}', [AddKpiController::class, 'update'])->name('kpi.update');
+
+
 // Admin can access
 Route::get('/admin/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index'])->middleware('admin')->name('admin.KeselamatanInteligen');
 Route::get('/admin/PengurusanBanduan', [PengurusanBanduanController::class, 'index'])->middleware('admin')->name('admin.PengurusanBanduan');

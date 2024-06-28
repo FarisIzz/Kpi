@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/AddKpiController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\AddKpi;
@@ -11,7 +9,7 @@ class AddKpiController extends Controller
 {
     public function index()
     {
-        $addKpis = AddKpi::all();
+        $addKpis = AddKpi::orderBy('bil')->get();
         return view('admin.add-kpi', compact('addKpis'));
     }
 
@@ -25,35 +23,35 @@ class AddKpiController extends Controller
         $request->validate([
             'teras' => 'required|string|max:255',
             'so' => 'required|string|max:255',
-            'negeri' => 'required|integer',
-            'pemilik' => 'required|string|max:255',
-            'kpi' => 'required|string|max:255',
             'pernyataan_kpi' => 'required|string|max:255',
             'sasaran' => 'required|string|max:255',
             'jenis_sasaran' => 'required|string|max:255',
-            'pencapaian' => 'required|string|max:255',
-            'peratus_pencapaian' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
         ]);
 
-        AddKpi::create($request->all());
+        $bil = AddKpi::count() + 1;
+
+        $data = $request->all();
+        $data['bil'] = $bil;
+        $data['kpi'] = 'KPI ' . $bil;
+
+        AddKpi::create($data);
 
         return redirect()->route('admin.add-kpi')->with('success', 'KPI created successfully.');
     }
 
-    public function edit(AddKpi $addKpi)
+      public function edit($id)
     {
-        return view('kpi.edit', compact('addKpi')); // Ensure the view name is correct
+        $addKpi = AddKpi::findOrFail($id);
+        return view('kpi.edit', compact('addKpi'));
     }
 
-    public function update(Request $request, AddKpi $addKpi)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'teras' => 'required|string|max:255',
             'so' => 'required|string|max:255',
-            'negeri' => 'required|integer',
+            'negeri' => 'required|string|max:255',
             'pemilik' => 'required|string|max:255',
-            'kpi' => 'required|string|max:255',
             'pernyataan_kpi' => 'required|string|max:255',
             'sasaran' => 'required|string|max:255',
             'jenis_sasaran' => 'required|string|max:255',
@@ -62,6 +60,7 @@ class AddKpiController extends Controller
             'status' => 'required|string|max:255',
         ]);
 
+        $addKpi = AddKpi::findOrFail($id);
         $addKpi->update($request->all());
 
         return redirect()->route('admin.add-kpi')->with('success', 'KPI updated successfully.');
@@ -69,8 +68,22 @@ class AddKpiController extends Controller
 
     public function destroy(AddKpi $addKpi)
     {
-        $addKpi->delete();
+       
+            $addKpi->delete();
+            $this->recalculateBilAndKpi(); // Optionally, if you want to recalculate 'bil' and 'kpi' after deletion
+    
+            return redirect()->route('admin.add-kpi')->with('success', 'KPI deleted successfully.');
+        
+    }
 
-        return redirect()->route('admin.add-kpi')->with('success', 'KPI deleted successfully.');
+    private function recalculateBilAndKpi()
+    {
+        $addKpis = AddKpi::orderBy('id')->get();
+        foreach ($addKpis as $index => $addKpi) {
+            $bil = $index + 1;
+            $addKpi->bil = $bil;
+            $addKpi->kpi = 'KPI ' . $bil;
+            $addKpi->save();
+        }
     }
 }
