@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KpiController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\KeselamatanInteligenController;
-use App\Http\Controllers\PengurusanBanduanController;
-use App\Http\Controllers\TahananRadikalController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AddKpiController;
 use App\Http\Controllers\InstitutionController;
+use App\Http\Controllers\TahananRadikalController;
+use App\Http\Controllers\PengurusanBanduanController;
+use App\Http\Controllers\KeselamatanInteligenController;
 
 
 /*
@@ -34,7 +35,6 @@ Route::group(['middleware' => 'guest'], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/home', [UserController::class, 'index'])->name('user.dashboard');
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });
@@ -50,16 +50,18 @@ Route::resource('AddKPI', AddKpiController::class);
 
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/add-kpi', [AddKpiController::class, 'index'])->name('admin.addKpi');
-    // Add other admin routes here
+    // dashboard 
+    Route::get('/admin/dashboard/index', [AdminController::class, 'index'])->name('admin.index');
+    // crud Kpi
+    Route::get('/admin/kpi', [AddKpiController::class, 'index'])->name('admin.kpi');  
+    Route::get('/kpi/add', [AddKpiController::class, 'create'])-> name('kpi.add');
+    Route::post('/admin/kpi', [AddKpiController::class, 'store'])->name('kpi.store');
+    Route::get('AddKPI/{AddKPI}/edit', [AddKpiController::class, 'edit'])->name('kpi.edit');
+    Route::delete('/admin/Kpi/IndexKPI/{addKpi}', [AddKpiController::class, 'destroy'])->name('kpi.destroy');
+    Route::put('/admin/addKpi/update/{id}', [AddKpiController::class, 'update'])->name('addKpi.update');
 });
 
-Route::get('/kpi/add', [AddKpiController::class, 'create'])-> name('kpi.add');
-Route::post('admin/add-kpi', [AddKpiController::class, 'store'])->name('admin.add-kpi');
-Route::delete('/kpi/{addKpi}', [AddKpiController::class, 'destroy'])->name('kpi.destroy');
-Route::get('/admin/add-kpi/{id}/edit', [AddKpiController::class, 'edit'])->name('kpi.edit');
-Route::put('/admin/add-kpi/{id}', [AddKpiController::class, 'update'])->name('kpi.update');
+
 
 
 // Admin can access

@@ -10,7 +10,7 @@ class AddKpiController extends Controller
     public function index()
     {
         $addKpis = AddKpi::orderBy('bil')->get();
-        return view('admin.add-kpi', compact('addKpis'));
+        return view('admin.kpi.IndexKPI', compact('addKpis'));
     }
 
     public function create()
@@ -36,7 +36,7 @@ class AddKpiController extends Controller
 
         AddKpi::create($data);
 
-        return redirect()->route('admin.add-kpi')->with('success', 'KPI created successfully.');
+        return redirect()->route('admin.kpi')->with('success', 'KPI created successfully.');
     }
 
       public function edit($id)
@@ -50,30 +50,23 @@ class AddKpiController extends Controller
         $request->validate([
             'teras' => 'required|string|max:255',
             'so' => 'required|string|max:255',
-            'negeri' => 'required|string|max:255',
-            'pemilik' => 'required|string|max:255',
             'pernyataan_kpi' => 'required|string|max:255',
             'sasaran' => 'required|string|max:255',
             'jenis_sasaran' => 'required|string|max:255',
-            'pencapaian' => 'required|string|max:255',
-            'peratus_pencapaian' => 'required|string|max:255',
-            'status' => 'required|string|max:255',
         ]);
 
         $addKpi = AddKpi::findOrFail($id);
         $addKpi->update($request->all());
 
-        return redirect()->route('admin.add-kpi')->with('success', 'KPI updated successfully.');
+        return redirect()->route('admin.kpi')->with('success', 'KPI updated successfully.');
     }
 
     public function destroy(AddKpi $addKpi)
     {
-       
-            $addKpi->delete();
-            $this->recalculateBilAndKpi(); // Optionally, if you want to recalculate 'bil' and 'kpi' after deletion
-    
-            return redirect()->route('admin.add-kpi')->with('success', 'KPI deleted successfully.');
-        
+        $addKpi->delete();
+        $this->recalculateBilAndKpi(); 
+
+        return redirect()->route('admin.kpi')->with('success', 'KPI deleted successfully.');
     }
 
     private function recalculateBilAndKpi()
