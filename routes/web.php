@@ -33,7 +33,7 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
 
 // ===================== SUPER ADMIN ======================
-Route::group(['middleware' => ['role:superAdmin']], function () {
+Route::group(['middleware' => ['role:super admin']], function () {
     // Super admin permission 
     Route::resource('permissions', PermissionController::class);
     Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
@@ -50,7 +50,7 @@ Route::group(['middleware' => ['role:superAdmin']], function () {
 });
 
 // ===================== ADMIN ======================
-Route::group(['middleware' => ['role:Admin']], function () {
+Route::group(['middleware' => ['role:admin']], function () {
     // dashboard 
     Route::get('/admin/dashboard/index', [AdminController::class, 'index'])->name('admin.index');
     // crud Kpi
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['role:Admin']], function () {
 });
 
 // ===================== USER ======================
-Route::group(['middleware' => ['role:Institution']], function () {
+Route::group(['middleware' => ['role:user']], function () {
     // Routes yang hanya boleh diakses oleh pengguna dengan role 'user'
     // Route::get('/user/dashboard/index', [InstitutionController::class, 'index'])->name('user.dashboard');
     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');

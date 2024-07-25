@@ -20,7 +20,11 @@
 
     <ul class="sidebar-nav">
         @if(Auth::check())
-            @can('view permissions')
+            @php
+                $userPermissions = Auth::user()->getAllPermissions()->pluck('name')->toArray();
+            @endphp
+
+            @if(in_array('view permissions', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ url('permissions') }}" class="sidebar-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-3" viewBox="0 0 16 16">
@@ -29,9 +33,9 @@
                         <span>Permissions</span>
                     </a>
                 </li>
-            @endcan
+            @endif
 
-            @can('view roles')
+            @if(in_array('view roles', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ url('roles') }}" class="sidebar-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill me-3" viewBox="0 0 16 16">
@@ -40,9 +44,9 @@
                         <span>Roles</span>
                     </a>
                 </li>
-            @endcan
+            @endif
 
-            @can('view users')
+            @if(in_array('view users', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ url('users') }}" class="sidebar-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill me-3" viewBox="0 0 16 16">
@@ -51,9 +55,9 @@
                         <span>Users</span>
                     </a>
                 </li>
-            @endcan
+            @endif
 
-            @can('view dashboard')
+            @if(in_array('view dashboard', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ route('admin.index') }}" class="sidebar-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person me-3" viewBox="0 0 16 16">
@@ -62,9 +66,9 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-            @endcan
+            @endif
 
-            @can('view add kpi')
+            @if(in_array('view add kpi', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ route('admin.kpi') }}" class="sidebar-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill me-3" viewBox="0 0 16 16">
@@ -73,16 +77,16 @@
                         <span>Add KPI</span>
                     </a>
                 </li>
-            @endcan
+            @endif
 
-            @can('view user dashboard')
+            @if(in_array('view user dashboard', $userPermissions))
                 <li class="sidebar-item">
                     <a href="{{ route('user.kpi.input') }}" class="sidebar-link">
                         <i class="lni lni-dashboard"></i>
                         <span>User Dashboard</span>
                     </a>
                 </li>
-            @endcan
+            @endif
         @endif
     </ul>
     @include('logout')

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\AddKpi;
-use App\Models\AdminDashboard;
+// use App\Models\AdminDashboard;
 
 
 class AdminController extends Controller
 {
+    public function __construct()
+{
+    $this->middleware('role:admin');
+}
     public function index()
     {
         // Retrieve data from the Kpi model

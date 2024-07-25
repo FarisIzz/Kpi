@@ -41,6 +41,14 @@
                         <div class="input-group mb-3">
                             <input type="password" placeholder="Confirm password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                         </div>
+                        <div class="form-group">
+                            <label for="role">Role</label>
+                            <select name="role" id="role" class="form-control mb-3">
+                                @foreach(\Spatie\Permission\Models\Role::all() as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="input-group mb-3">
                             <button class="btn btn-lg btn-primary w-100 fs-6">Register</button>
                         </div>
