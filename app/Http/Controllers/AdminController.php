@@ -11,15 +11,15 @@ class AdminController extends Controller
     public function index()
     {
         // Retrieve data from the Kpi model
-        $kpis = AdminDashboard::orderBy('sortby', 'asc')->get();
+        // $akpis = AdminDashboard::orderBy('sortby', 'asc')->get();
         $addKpis = AddKpi::orderBy('bil')->get();
         
         // Calculate overall achievement percentage
-        $totalTarget = $kpis->sum('target');
-        $totalAchievement = $kpis->sum('achievement');
+        $totalTarget = $addKpis->sum('target');
+        $totalAchievement = $addKpis->sum('achievement');
         $overallAchievement = $totalTarget ? ($totalAchievement / $totalTarget) * 100 : 0;
 
-        return view('admin.dashboard.index', compact('kpis', 'addKpis', 'overallAchievement'));
+        return view('admin.dashboard.index', compact('addKpis', 'overallAchievement'));
     }
 
     public function addKpi()

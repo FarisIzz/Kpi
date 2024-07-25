@@ -6,24 +6,19 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserMiddleware
+class UserRoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
-        // Check if the user is authenticated and is an user
-        if (Auth::check() && Auth::user()->role === 'user') {
-            // User is an user, allow the request to proceed
-            return $next($request);
-        }
+    // public function handle(Request $request, Closure $next)
+    // {
+    //     // Check if the user is authenticated and has the 'user' role
+    //     if (Auth::check() && Auth::user()->hasRole('user')) {
+    //         // User is authenticated and has the 'user' role, allow the request to proceed
+    //         return $next($request);
+    //     }
 
-        // User is not authenticated or is not an user, redirect or return error
-        return redirect()->route('home')->with('error', 'You are not authorized to access this page.');
-    }
+    //     // User is not authenticated or does not have the 'user' role
+    //     // You can customize the response here based on your application's needs
+    //     // For example, redirect to a specific route or return an error message
+    //     return redirect()->route('login')->with('error', 'You are not authorized to access this page.');
+    // }
 }

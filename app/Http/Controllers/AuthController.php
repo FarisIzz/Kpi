@@ -6,51 +6,67 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function register()
     {
-        return view('register');
+        return view('auth.register');
     }
- 
+
     public function registerPost(Request $request)
     {
-        $user = new User();
- 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
- 
-        $user->save();
- 
-        return back()->with('success', 'Register successfully');
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($users);
+
+        return redirect()->route('login')->with('success', 'Registration successful. You can now log in.');
     }
- 
+
     public function login()
     {
-        return view('login');
+        return view('auth.login');
     }
- 
+
     public function loginPost(Request $request)
-{
-    $credentials = [
-        'email' => $request->email,
-        'password' => $request->password,
-    ];
+    {
+        // Validate login request
+        $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.index')->with('success', 'Login Success');
-        } else {
-            return redirect()->route('user.dashboard')->with('success', 'Login Success');
+        if (Auth::attempt($credentials)) {
+             /** @var \App\Models\User */
+            $user = Auth::user();
+
+            // Check user role and redirect accordingly
+            if ($user->hasRole('superAdmin')) {
+                return redirect()->route('permissions.index')->with('success', 'Login Success');
+            } else if ($user->hasRole('Admin')) {
+                return redirect()->route('admin.index')->with('success', 'Login Success');
+            } else {
+                return redirect()->route('user.kpi.input')->with('success', 'Login Success');
+            }
         }
-    }
-    return back()->with('error', 'Error Email or Password');
-}
 
- 
+        // Authentication failed
+        return redirect()->back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+    }
+
+
     public function logout()
     {
         Auth::logout();

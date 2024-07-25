@@ -16,14 +16,19 @@ return new class extends Migration
             $table->integer('bil')->nullable();
             $table->string('teras');
             $table->string('SO'); 
+            $table->string('negeri'); 
+            $table->string('pemilik'); 
             $table->string('kpi'); 
             $table->string('pernyataan_kpi');
             $table->string('sasaran');
             $table->string('jenis_sasaran');
+            $table->float('pencapaian')->default(0);
+            $table->float('peratus_pencapaian')->default(0);
             $table->timestamps();
         });
     }
 
+ 
     /**
      * Reverse the migrations.
      */

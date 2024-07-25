@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KPI;
 use Illuminate\Http\Request;
 
-class KpiController extends Controller
+class SuperAdminController extends Controller
 {
     public function index()
     {
         
+        return view('superAdmin.permission.index');
     }
-}
+}   

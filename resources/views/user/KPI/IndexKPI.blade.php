@@ -1,8 +1,8 @@
 @extends('layout')
-@section('title', 'KPI')
+@section('title', 'JABATAN PENJARA MALAYSIA')
 @section('body')
 <style>
-     .small-text {
+    .small-text {
         font-size: 0.75rem; /* Mengurangkan saiz font */
         white-space: nowrap; /* Mengelakkan pembungkusan teks */
         text-overflow: ellipsis; /* Menambah ellipsis jika teks melebihi lebar sel */
@@ -16,7 +16,20 @@
         text-overflow: ellipsis; /* Tambah ellipsis jika teks melebihi lebar butang */
         overflow: hidden; /* Elakkan teks melimpah keluar dari butang */
     }
+
+    .form-control[readonly] {
+        background-color: #e9ecef; /* Light gray background color */
+        color: #495057; /* Text color */
+    }
+
+    .form-control[readonly]:hover {
+        background-color: #e9ecef; /* Same background color to disable hover effect */
+        cursor: default; /* Default cursor */
+        border-color: #ced4da; /* Same border color to disable hover effect */
+        box-shadow: none; /* Remove box shadow on hover */
+    }
 </style>
+
 @include('sidebar')
 <div class="container">
     <div class="main">
@@ -39,13 +52,13 @@
                                 <tr>
                                     <th class="text-secondary small-text">BIL</th>
                                     <th class="text-secondary small-text">TERAS</th>
-                                    <th class="text-secondary small-text">SO</th>                          
-                                    <th class="text-secondary small-text">NEGERI</th>                          
-                                    <th class="text-secondary small-text">PEMILIK</th>                          
+                                    <th class="text-secondary small-text">SO</th>                                             
                                     <th class="text-secondary small-text">KPI</th>
                                     <th class="text-secondary small-text">PERNYATAAN KPI</th>
                                     <th class="text-secondary small-text">SASARAN</th>
                                     <th class="text-secondary small-text">JENIS SASARAN</th>
+                                    <th class="text-secondary small-text">PENCAPAIAN</th>
+                                    <th class="text-secondary small-text">PERATUS PENCAPAIAN</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -55,12 +68,12 @@
                                         <td class="text-secondary small-text">{{ $loop->iteration }}</td>
                                         <td class="small-text">{{ $addKpi->teras }}</td>
                                         <td class="small-text">{{ $addKpi->SO }}</td>
-                                        <td class="small-text">{{ $addKpi->negeri }}</td>
-                                        <td class="small-text">{{ $addKpi->pemilik }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
                                         <td class="small-text">{{ $addKpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addKpi->sasaran }}</td>
                                         <td class="small-text">{{ $addKpi->jenis_sasaran }}</td>
+                                        <td class="small-text">{{ $addKpi->pencapaian }}</td>
+                                        <td class="small-text">{{ $addKpi->peratus_pencapaian }}</td>
                                         <td>
                                             <button onclick="openEditPopup({{ json_encode($addKpi) }})" class="btn btn-warning small-button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -68,7 +81,6 @@
                                                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                                 </svg>
                                             </button>
-                                            @include('admin.KPI.delete')
                                         </td>
                                     </tr>
                                 @endforeach
@@ -96,78 +108,63 @@
                     <div class="row mb-3">
                         <label for="editTeras" class="col-sm-5 col-form-label">TERAS</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editTeras" name="teras" class="form-control" required>
+                            <input type="text" id="editTeras" name="teras" class="form-control" readonly>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <label for="editSO" class="col-sm-5 col-form-label">SO</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editSO" name="SO" class="form-control" required>
+                            <input type="text" id="editSO" name="SO" class="form-control" readonly>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
-                        <label for="editNegeri" class="col-sm-5 col-form-label">NEGERI</label>
+                        <label for="editkpi" class="col-sm-5 col-form-label">KPI</label>
                         <div class="col-sm-7">
-                            <select id="editNegeri" name="negeri" class="form-select" required>
-                                <option value="" disabled selected>Select Negeri</option>
-                                <option value="Johor">JOHOR</option>
-                                <option value="Kedah">KEDAH</option>
-                                <option value="Kelantan">KELANTAN</option>
-                                <option value="Melaka">Melaka</option>
-                                <option value="Negeri Sembilan">Negeri Sembilan</option>
-                                <option value="Pahang">Pahang</option>
-                                <option value="Perak">Perak</option>
-                                <option value="Perlis">Perlis</option>
-                                <option value="Pulau Pinang">Pulau Pinang</option>
-                                <option value="Sabah">Sabah</option>
-                                <option value="Sarawak">Sarawak</option>
-                                <option value="Selangor">Selangor</option>
-                                <option value="Terengganu">Terengganu</option>
-                                <option value="Wilayah Persekutuan Kuala Lumpur">Wilayah Persekutuan Kuala Lumpur</option>
-                                <option value="Wilayah Persekutuan Labuan">Wilayah Persekutuan Labuan</option>
-                                <option value="Wilayah Persekutuan Putrajaya">Wilayah Persekutuan Putrajaya</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <label for="editPemilik" class="col-sm-5 col-form-label">PEMILIK</label>
-                        <div class="col-sm-7">
-                            <input type="text" id="editPemilik" name="pemilik" class="form-control" required>
+                            <input type="text" id="editkpi" name="kpi" class="form-control" readonly>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <label for="editPernyataanKpi" class="col-sm-5 col-form-label">PERNYATAAN KPI</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editPernyataanKpi" name="pernyataan_kpi" class="form-control" required>
+                            <input type="text" id="editPernyataanKpi" name="pernyataan_kpi" class="form-control" readonly>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <label for="editSasaran" class="col-sm-5 col-form-label">SASARAN</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editSasaran" name="sasaran" class="form-control" required>
+                            <input type="text" id="editSasaran" name="sasaran" class="form-control" readonly>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <label for="editJenisSasaran" class="col-sm-5 col-form-label">JENIS SASARAN</label>
                         <div class="col-sm-7">
-                            <select id="editJenisSasaran" name="jenis_sasaran" class="form-select" required>
-                                <option value="" disabled selected>Select Jenis Sasaran</option>
-                                <option value="peratus">%</option>
-                                <option value="bilangan">Bilangan</option>
-                            </select>
+                            <input type="text" id="editJenisSasaran" name="jenis_sasaran" class="form-control" readonly>
                         </div>
                     </div>
-
-                    <!-- Submit button -->
+                    
+                    <div class="row mb-3">
+                        <label for="editPencapaian" class="col-sm-5 col-form-label">PENCAPAIAN</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="editPencapaian" name="pencapaian" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label for="editPeratusPencapaian" class="col-sm-5 col-form-label">PERATUS PENCAPAIAN</label>
+                        <div class="col-sm-7">
+                            <input type="text" id="editPeratusPencapaian" name="peratus_pencapaian" class="form-control" readonly>
+                            {{-- <input type="hidden" id="editPeratusPencapaian" name="peratus_pencapaian"> --}}
+                        </div>
+                    </div>
+                    
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-                        <button type="submit" class="btn btn-primary">UPDATE</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
             </div>
@@ -177,18 +174,42 @@
 
 <script>
     function openEditPopup(addKpi) {
-        document.getElementById('editKpiForm').action = `/admin/addKpi/update/${addKpi.id}`;
+        const modal = new bootstrap.Modal(document.getElementById('editKpi'));
         document.getElementById('editTeras').value = addKpi.teras;
         document.getElementById('editSO').value = addKpi.SO;
-        document.getElementById('editNegeri').value = addKpi.negeri;
-        document.getElementById('editPemilik').value = addKpi.pemilik;
+        document.getElementById('editkpi').value = addKpi.kpi;
         document.getElementById('editPernyataanKpi').value = addKpi.pernyataan_kpi;
         document.getElementById('editSasaran').value = addKpi.sasaran;
         document.getElementById('editJenisSasaran').value = addKpi.jenis_sasaran;
-        var editKpiModal = new bootstrap.Modal(document.getElementById('editKpi'));
-        editKpiModal.show();
+        document.getElementById('editPencapaian').value = addKpi.pencapaian;
+
+        // Calculate peratus_pencapaian based on initial values
+        const peratusPencapaian = calculatePeratusPencapaian(addKpi.pencapaian, addKpi.sasaran);
+        document.getElementById('editPeratusPencapaian').value = peratusPencapaian.toFixed(2);
+
+        document.getElementById('editKpiForm').action = `/user/addKpi/update/${addKpi.id}`;
+        modal.show();
     }
+
+    function calculatePeratusPencapaian(pencapaian, sasaran) {
+        const pencapaianNum = parseFloat(pencapaian);
+        const sasaranNum = parseFloat(sasaran);
+
+        if (isNaN(pencapaianNum) || isNaN(sasaranNum) || sasaranNum === 0) {
+            return 0;
+        }
+
+        return (pencapaianNum / sasaranNum) * 100;
+    }
+
+    // Update peratus_pencapaian when pencapaian changes
+    document.getElementById('editPencapaian').addEventListener('input', function () {
+        const pencapaian = this.value;
+        const sasaran = document.getElementById('editSasaran').value;
+        const peratusPencapaian = calculatePeratusPencapaian(pencapaian, sasaran);
+        document.getElementById('editPeratusPencapaian').value = peratusPencapaian.toFixed(2);
+    });
 </script>
+
+
 @endsection
-
-

@@ -18,10 +18,24 @@ class AdminMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
-            return $next($request);
+        // if (Auth::check() && Auth::user()->role === 'admin') {
+        //     return $next($request);
+        // }
+
+        // return redirect()->route('admin')->with('error', 'You are not authorized to access this page.');
+        
+        if (Auth::check()){
+            /** @var App\Models\User */
+
+            $user = Auth::user();
+            if($user->hasRole('Admin') ){
+                return $next($request);
+            }
+            abort(403, "User does not have correct ROLE");
         }
 
-        return redirect()->route('admin')->with('error', 'You are not authorized to access this page.');
+        abort(401);
     }
+
+    
 }
