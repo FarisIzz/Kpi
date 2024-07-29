@@ -8,7 +8,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AddKpiController;
 use App\Http\Controllers\UserKpiController;
 use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\InstitutionController;
 
 
 /*
@@ -64,8 +63,6 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 // ===================== USER ======================
 Route::group(['middleware' => ['role:user']], function () {
-    // Routes yang hanya boleh diakses oleh pengguna dengan role 'user'
-    // Route::get('/user/dashboard/index', [InstitutionController::class, 'index'])->name('user.dashboard');
     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
     Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');

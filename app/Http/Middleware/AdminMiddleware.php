@@ -18,12 +18,6 @@ class AdminMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        // if (Auth::check() && Auth::user()->role === 'admin') {
-        //     return $next($request);
-        // }
-
-        // return redirect()->route('admin')->with('error', 'You are not authorized to access this page.');
-        
         if (Auth::check()){
             /** @var App\Models\User */
 
