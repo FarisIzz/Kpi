@@ -40,11 +40,11 @@
                         <div class="col-auto">
                             <h5 class="ms-2">KPI TABLE</h5>
                         </div>
-                        <div class="col d-flex justify-content-end">
+                        {{-- <div class="col d-flex justify-content-end">
                             <div class="btn-group">
                                 @include('admin.KPI.add')
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="table-responsive table-responsive-sm">
                         <table class="table mt-3 p-3">
@@ -199,8 +199,10 @@
             return 0;
         }
 
-        return (pencapaianNum / sasaranNum) * 100;
+        const peratusPencapaian = (pencapaianNum / sasaranNum) * 100;
+        return Math.min(peratusPencapaian, 100);
     }
+
 
     // Update peratus_pencapaian when pencapaian changes
     document.getElementById('editPencapaian').addEventListener('input', function () {

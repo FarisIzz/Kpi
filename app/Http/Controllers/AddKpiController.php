@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AddKpi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
+
 
 class AddKpiController extends Controller
 {
@@ -41,9 +42,6 @@ class AddKpiController extends Controller
         return view('kpi.edit', compact('addKpi'));
     }
 
-    
-
-    
     public function update(Request $request, $id)
     {
         $this->validateKpi($request);

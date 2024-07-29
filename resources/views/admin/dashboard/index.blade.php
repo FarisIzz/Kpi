@@ -16,6 +16,16 @@
         text-overflow: ellipsis; /* Tambah ellipsis jika teks melebihi lebar butang */
         overflow: hidden; /* Elakkan teks melimpah keluar dari butang */
     }
+
+    .status-high {
+            color: green;
+        }
+        .status-medium {
+            color: orange;
+        }
+        .status-low {
+            color: red;
+        }
 </style>
 @include('sidebar')
 <div class="container">
@@ -58,16 +68,6 @@
                             </thead>
                             <tbody>
                                 @foreach ($addKpis as $index => $addkpi)
-                                    @php
-                                        $rowClass = '';
-                                        if ($addkpi->peratus_pencapaian >= 80) {
-                                            $rowClass = 'bg-success text-light';
-                                        } elseif ($addkpi->peratus_pencapaian >= 50) {
-                                            $rowClass = 'bg-warning text-dark';
-                                        } else {
-                                            $rowClass = 'bg-danger text-light';
-                                        }
-                                    @endphp
                                     <tr>
                                         <td class="small-text text-secondary">{{ $index + 1 }}</td>
                                         <td class="small-text">{{ $addkpi->teras }}</td>
@@ -77,9 +77,17 @@
                                         <td class="small-text">{{ $addkpi->kpi }}</td>
                                         <td class="small-text">{{ $addkpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addkpi->sasaran }}</td>
-                                        <td class="small-text">{{ $addkpi->pencapaian }}</td>
-                                        <td class="small-text">{{ number_format($addkpi->peratus_pencapaian, 2) }}</td>
-                                        <td class="small-text">{{ $addkpi->status }}</td>
+                                        <td class="small-text">{{ $addkpi->pencapaian }}%</td>
+                                        <td class="small-text">{{ number_format($addkpi->peratus_pencapaian, 2) }}%</td>
+                                        <td class="small-text">
+                                            @if($addkpi->peratus_pencapaian >= 75)
+                                                <span class="status-high">Tinggi</span>
+                                            @elseif($addkpi->peratus_pencapaian >= 50)
+                                                <span class="status-medium">Sederhana</span>
+                                            @else
+                                                <span class="status-low">Rendah</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -88,19 +96,15 @@
                             <span class="me-2 text-small">Peratus Pencapaian Keseluruhan:</span>
                             @php
                                 $statusClass = '';
-                                if ($overallAchievement >= 80) {
-                                    $statusClass = 'bg-success text-light';
-                                    $statusText = 'Hijau';
-                                } elseif ($overallAchievement >= 50) {
+                                if ($averageAchievement >= 80) {
+                                    $statusClass = 'bg-success text-success';
+                                } elseif ($averageAchievement >= 50) {
                                     $statusClass = 'bg-warning text-dark';
-                                    $statusText = 'Kuning';
                                 } else {
                                     $statusClass = 'bg-danger text-light';
-                                    $statusText = 'Merah';
                                 }
                             @endphp
-                            <span class="badge {{ $statusClass }} me-2">{{ number_format($overallAchievement, 2) }}</span>
-                            <span class="badge {{ $statusClass }}">{{ $statusText }}</span>
+                            <span class="badge-{{ $statusClass }} me-2">{{ number_format($averageAchievement, 2) }}%</span>
                         </div>
                     </div> 
                     </div> 

@@ -18,12 +18,21 @@ class AdminController extends Controller
         // $akpis = AdminDashboard::orderBy('sortby', 'asc')->get();
         $addKpis = AddKpi::orderBy('bil')->get();
         
-        // Calculate overall achievement percentage
-        $totalTarget = $addKpis->sum('target');
-        $totalAchievement = $addKpis->sum('achievement');
-        $overallAchievement = $totalTarget ? ($totalAchievement / $totalTarget) * 100 : 0;
-
-        return view('admin.dashboard.index', compact('addKpis', 'overallAchievement'));
+         // Kira purata peratus pencapaian
+         $totalAchievement = $addKpis->sum('peratus_pencapaian');
+         $totalKpis = $addKpis->count();
+ 
+         if ($totalKpis > 0) {
+             $averageAchievement = $totalAchievement / $totalKpis;
+         } else {
+             $averageAchievement = 0;
+         }
+ 
+         // Tentukan status berdasarkan purata pencapaian
+         $status = $averageAchievement >= 50 ? 'Hijau' : 'Merah';
+ 
+         // Hantar data ke view
+         return view('admin.dashboard.index', compact('addKpis', 'averageAchievement', 'status'));
     }
 
     public function addKpi()
