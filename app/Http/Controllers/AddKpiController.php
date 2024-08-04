@@ -58,7 +58,7 @@ class AddKpiController extends Controller
         $addKpi->delete();
         $this->recalculateBilAndKpi(); 
 
-        return redirect()->route('user.kpi.input')->with('success', 'KPI deleted successfully.');
+        return redirect()->route('admin.kpi')->with('success', 'KPI deleted successfully.');
     }
 
     private function recalculateBilAndKpi()
