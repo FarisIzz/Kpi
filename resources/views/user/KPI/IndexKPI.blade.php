@@ -28,6 +28,12 @@
         border-color: #ced4da; /* Same border color to disable hover effect */
         box-shadow: none; /* Remove box shadow on hover */
     }
+
+    .kpi-statement {
+        white-space: pre-wrap; /* Membolehkan pembalut perkataan */
+        word-wrap: break-word; /* Membolehkan perkataan panjang untuk membalut */
+        max-width: 300px; /* Tetapkan lebar maksimum yang sesuai */
+    }
 </style>
 
 @include('sidebar')
@@ -69,7 +75,7 @@
                                         <td class="small-text">{{ $addKpi->teras }}</td>
                                         <td class="small-text">{{ $addKpi->SO }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
-                                        <td class="small-text">{{ $addKpi->pernyataan_kpi }}</td>
+                                        <td class="small-text kpi-statement">{{ $addKpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addKpi->sasaran }}</td>
                                         <td class="small-text">{{ $addKpi->jenis_sasaran }}</td>
                                         <td class="small-text">{{ $addKpi->pencapaian }}</td>

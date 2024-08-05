@@ -22,6 +22,12 @@
     .status-merah {
         background-color: red;
     }
+
+    .kpi-statement {
+        white-space: pre-wrap; /* Membolehkan pembalut perkataan */
+        word-wrap: break-word; /* Membolehkan perkataan panjang untuk membalut */
+        max-width: 300px; /* Tetapkan lebar maksimum yang sesuai */
+    }
 </style>
 @include('sidebar')
 <div class="container">
@@ -57,7 +63,7 @@
                                         <td>{{ $kpi->negeri }}</td>
                                         <td>{{ $kpi->pemilik }}</td>
                                         <td>{{ $kpi->kpi }}</td>
-                                        <td>{{ $kpi->penyataan_kpi }}</td>
+                                        <td class="kpi-statement">{{ $kpi->penyataan_kpi }}</td>
                                         <td>{{ $kpi->sasaran }}</td>
                                         <td>{{ $kpi->jenis_sasaran }}</td>
                                         <td>{{ $kpi->pencapaian }}</td>

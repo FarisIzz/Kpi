@@ -16,6 +16,12 @@
         text-overflow: ellipsis; /* Tambah ellipsis jika teks melebihi lebar butang */
         overflow: hidden; /* Elakkan teks melimpah keluar dari butang */
     }
+
+    .kpi-statement {
+        white-space: pre-wrap; /* Membolehkan pembalut perkataan */
+        word-wrap: break-word; /* Membolehkan perkataan panjang untuk membalut */
+        max-width: 300px; /* Tetapkan lebar maksimum yang sesuai */
+    }
 </style>
 @include('sidebar')
 <div class="container">
@@ -54,11 +60,11 @@
                                     <tr>
                                         <td class="text-secondary small-text">{{ $loop->iteration }}</td>
                                         <td class="small-text">{{ $addKpi->teras }}</td>
-                                        <td class="small-text">{{ $addKpi->SO }}</td>
+                                        <td class="small-text kpi-statement">{{ $addKpi->SO }}</td>
                                         <td class="small-text">{{ $addKpi->negeri }}</td>
                                         <td class="small-text">{{ $addKpi->pemilik }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
-                                        <td class="small-text">{{ $addKpi->pernyataan_kpi }}</td>
+                                        <td class="small-text kpi-statement">{{ $addKpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addKpi->sasaran }}</td>
                                         <td class="small-text">{{ $addKpi->jenis_sasaran }}</td>
                                         <td>

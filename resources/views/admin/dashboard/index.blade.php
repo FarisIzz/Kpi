@@ -26,6 +26,13 @@
         .status-low {
             color: red;
         }
+
+        
+    .kpi-statement {
+        white-space: pre-wrap; /* Membolehkan pembalut perkataan */
+        word-wrap: break-word; /* Membolehkan perkataan panjang untuk membalut */
+        max-width: 500px; /* Tetapkan lebar maksimum yang sesuai */
+    }
 </style>
 @include('sidebar')
 <div class="container">
@@ -71,11 +78,11 @@
                                     <tr>
                                         <td class="small-text text-secondary">{{ $index + 1 }}</td>
                                         <td class="small-text">{{ $addkpi->teras }}</td>
-                                        <td class="small-text">{{ $addkpi->SO }}</td>
+                                        <td class="small-text kpi-statement">{{ $addkpi->SO }}</td>
                                         <td class="small-text">{{ $addkpi->negeri }}</td>
                                         <td class="small-text">{{ $addkpi->pemilik }}</td>
                                         <td class="small-text">{{ $addkpi->kpi }}</td>
-                                        <td class="small-text">{{ $addkpi->pernyataan_kpi }}</td>
+                                        <td class="small-text kpi-statement">{{ $addkpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addkpi->sasaran }}</td>
                                         <td class="small-text">{{ $addkpi->pencapaian }}%</td>
                                         <td class="small-text">{{ number_format($addkpi->peratus_pencapaian, 2) }}%</td>
@@ -99,9 +106,9 @@
                                 if ($averageAchievement >= 80) {
                                     $statusClass = 'bg-success text-success';
                                 } elseif ($averageAchievement >= 50) {
-                                    $statusClass = 'bg-warning text-dark';
+                                    $statusClass = 'bg-warning text-warning';
                                 } else {
-                                    $statusClass = 'bg-danger text-light';
+                                    $statusClass = 'bg-danger text-danger';
                                 }
                             @endphp
                             <span class="badge-{{ $statusClass }} me-2">{{ number_format($averageAchievement, 2) }}%</span>

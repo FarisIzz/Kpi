@@ -5,7 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -14,8 +16,8 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-          // Buat permissions
-          $permissions = [
+        // Buat permissions
+        $permissions = [
             'view permissions',
             'view roles',
             'view users',
@@ -42,11 +44,29 @@ class RolesAndPermissionsSeeder extends Seeder
             'view users'
         ]);
 
-        // $adminRole->givePermissionTo(Permission::all());
-
         $userRole = Role::create(['name' => 'user']);
         $userRole->givePermissionTo([
             'view user dashboard',
         ]);
+
+        // Generate 100 users
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 100; $i++) {
+            $user = User::create([
+                'name' => $faker->name,
+                'email' => $faker->unique()->safeEmail,
+                'password' => Hash::make('87654321'),
+            ]);
+
+            // Assign roles randomly
+            if ($i < 10) {
+                $user->assignRole($superadminRole);
+            } elseif ($i < 40) {
+                $user->assignRole($adminRole);
+            } else {
+                $user->assignRole($userRole);
+            }
+        }
     }
 }
