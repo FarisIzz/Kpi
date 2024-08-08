@@ -79,7 +79,6 @@
                                         <td>{{ $addKpi->SO }}</td>
                                         <td>{{ $addKpi->negeri }}</td>
                                         <td>{{ $addKpi->pemilik }}</td>
-                                        <td>{{ $addKpi->kpi }}</td>
                                         <td>{{ $addKpi->pernyataan_kpi }}</td>
                                         <td>{{ $addKpi->sasaran }}</td>
                                         <td>{{ $addKpi->jenis_sasaran }}</td>
