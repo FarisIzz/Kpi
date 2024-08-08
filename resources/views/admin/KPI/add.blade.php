@@ -62,9 +62,14 @@
                     <div class="row mb-3">
                         <label for="addPemilik" class="col-sm-5 col-form-label">PEMILIK</label>
                         <div class="col-sm-7">
-                            <input type="text" id="addPemilik" name="pemilik" class="form-control" required>
+                            <select id="addPemilik" name="user_id" class="form-select" required>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                    
             
                     <div class="row mb-3">
                         <label for="pernyataan_kpi" class="col-sm-5 col-form-label">PERNYATAAN KPI</label>

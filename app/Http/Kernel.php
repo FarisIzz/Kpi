@@ -75,6 +75,7 @@ class Kernel extends HttpKernel
         // 'role' => \App\Http\Middleware\RoleMiddleware::class,
         // 'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'CheckKpiOwner' => \App\Http\Middleware\CheckKpiOwner::class,
     ];
     
     

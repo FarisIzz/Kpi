@@ -62,12 +62,40 @@ Route::group(['middleware' => ['role:admin']], function () {
 });
 
 // ===================== USER ======================
-Route::group(['middleware' => ['role:user']], function () {
+// Route::group(['middleware' => ['role:user']], function () {
+//     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
+//     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
+//     Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
+//     Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
+// });
+
+// Route::middleware(['auth', 'checkKpiOwner'])->group(function () {
+//     Route::get('add_kpi/{add_kpi}', [UserKpiController::class, 'show'])->name('user.kpi.input');
+//     // Tambahkan rute lain yang memerlukan pemeriksaan pemilik KPI di sini...
+// });
+
+Route::middleware(['role:user'])->group(function () {
     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
-    Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
+    // Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
     Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
+    Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'index'])->name('user.kpi.input');
 });
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::middleware(['role:user'])->group(function () {
+//         Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
+//         Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
+//         // Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
+//         Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
+//         Route::get('/userdashboard', [UserKpiController::class, 'index'])->name('user.kpi.input');
+//     });
+
+//     // Route::middleware(['checkKpiOwner'])->group(function () {
+//     //     Route::get('add_kpi/{add_kpi}', [UserKpiController::class, 'show']);
+//     // });
+// });
+
 
 // ===================== LOGOUT ======================
 Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');

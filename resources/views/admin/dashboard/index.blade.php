@@ -80,7 +80,7 @@
                                         <td class="small-text">{{ $addkpi->teras }}</td>
                                         <td class="small-text kpi-statement">{{ $addkpi->SO }}</td>
                                         <td class="small-text">{{ $addkpi->negeri }}</td>
-                                        <td class="small-text">{{ $addkpi->pemilik }}</td>
+                                        <td class="small-text">{{ $addkpi->user->name }}</td>
                                         <td class="small-text">{{ $addkpi->kpi }}</td>
                                         <td class="small-text kpi-statement">{{ $addkpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addkpi->sasaran }}</td>

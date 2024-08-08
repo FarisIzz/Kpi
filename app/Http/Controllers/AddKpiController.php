@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\AddKpi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Log;
 
 
@@ -11,8 +13,9 @@ class AddKpiController extends Controller
 {
     public function index()
     {
+        $users = User::all();
         $addKpis = AddKpi::orderBy('bil')->get();
-        return view('admin.kpi.IndexKPI', compact('addKpis'));
+        return view('admin.kpi.IndexKPI', compact('addKpis', 'users'));
     }
 
     public function create()
@@ -78,9 +81,9 @@ class AddKpiController extends Controller
             'teras' => 'required|string|max:255',
             'SO' => 'required|string|max:255',
             'negeri' => 'required|string|max:255',
-            'pemilik' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'pernyataan_kpi' => 'required|string|max:255',
-            'sasaran' => 'required|string|max:255',
+            'sasaran' => 'required|numeric',
             'jenis_sasaran' => 'required|string|max:255',
             'pencapaian' => 'nullable|numeric',
             'peratus_pencapaian' => 'nullable|numeric',

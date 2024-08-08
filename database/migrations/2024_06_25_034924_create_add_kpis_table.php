@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('teras');
             $table->string('SO'); 
             $table->string('negeri'); 
-            $table->string('pemilik'); 
+            // $table->string('pemilik'); 
+            $table->unsignedBigInteger('user_id');
             $table->string('kpi'); 
             $table->string('pernyataan_kpi');
             $table->string('sasaran');

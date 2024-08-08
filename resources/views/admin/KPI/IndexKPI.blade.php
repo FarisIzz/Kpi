@@ -20,7 +20,7 @@
     .kpi-statement {
         white-space: pre-wrap; /* Membolehkan pembalut perkataan */
         word-wrap: break-word; /* Membolehkan perkataan panjang untuk membalut */
-        max-width: 300px; /* Tetapkan lebar maksimum yang sesuai */
+        max-width: 150px; /* Tetapkan lebar maksimum yang sesuai */
     }
 </style>
 @include('sidebar')
@@ -62,7 +62,7 @@
                                         <td class="small-text">{{ $addKpi->teras }}</td>
                                         <td class="small-text kpi-statement">{{ $addKpi->SO }}</td>
                                         <td class="small-text">{{ $addKpi->negeri }}</td>
-                                        <td class="small-text">{{ $addKpi->pemilik }}</td>
+                                        <td class="small-text">{{ $addKpi->user->name }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
                                         <td class="small-text kpi-statement">{{ $addKpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addKpi->sasaran }}</td>
@@ -141,7 +141,11 @@
                     <div class="row mb-3">
                         <label for="editPemilik" class="col-sm-5 col-form-label">PEMILIK</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editPemilik" name="pemilik" class="form-control" required>
+                            <select id="editPemilik" name="user_id" class="form-select" required>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     
@@ -187,7 +191,7 @@
         document.getElementById('editTeras').value = addKpi.teras;
         document.getElementById('editSO').value = addKpi.SO;
         document.getElementById('editNegeri').value = addKpi.negeri;
-        document.getElementById('editPemilik').value = addKpi.pemilik;
+        document.getElementById('editPemilik').value = addKpi.users_id;
         document.getElementById('editPernyataanKpi').value = addKpi.pernyataan_kpi;
         document.getElementById('editSasaran').value = addKpi.sasaran;
         document.getElementById('editJenisSasaran').value = addKpi.jenis_sasaran;

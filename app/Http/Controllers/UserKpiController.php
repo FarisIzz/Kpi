@@ -4,14 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\AddKpi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserKpiController extends Controller
 {
-    public function inputForm()
+    public function index()
     {
-        $addKpis = AddKpi::all();
+        // Dapatkan pengguna yang sedang login
+        $user = Auth::user();
+
+        // Ambil KPI yang berkaitan dengan pengguna tersebut
+        $addKpis = AddKpi::where('user_id', $user->id)->get();
+
+        // Paparkan ke view
         return view('user.KPI.IndexKPI', compact('addKpis'));
     }
+    
+    // public function inputForm()
+    // {
+    //     $addKpis = AddKpi::all();
+    //     return view('user.KPI.IndexKPI', compact('addKpis'));
+    // }
+
+    // public function show($id)
+    // {
+    //     $addkpi = AddKpi::findOrFail($id);
+    //     return view('add_kpi.show', compact('kpi'));
+    // }
 
     public function storeInput(Request $request)
 {
@@ -37,8 +56,8 @@ class UserKpiController extends Controller
 
     public function edit($id)
     {
-        $addKpi = AddKpi::findOrFail($id);
-        return view('user.edit', compact('addKpi'));
+        $addKpis = AddKpi::findOrFail($id);
+        return view('user.edit', compact('addKpis'));
     }
 
     public function update(Request $request, $id)
