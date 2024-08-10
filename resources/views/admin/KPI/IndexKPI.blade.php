@@ -59,8 +59,8 @@
                                 @foreach ($addKpis as $addKpi)
                                     <tr>
                                         <td class="text-secondary small-text">{{ $loop->iteration }}</td>
-                                        <td class="small-text">{{ $addKpi->teras }}</td>
-                                        <td class="small-text kpi-statement">{{ $addKpi->SO }}</td>
+                                        <td class="small-text">{{ $addKpi->teras->id }}</td>
+                                        <td class="small-text">{{ $addKpi->so->id }}</td>
                                         <td class="small-text">{{ $addKpi->negeri }}</td>
                                         <td class="small-text">{{ $addKpi->user->name }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
@@ -99,17 +99,26 @@
                     @csrf
                     @method('PUT')
                     <!-- Form fields for editing KPI -->
+
                     <div class="row mb-3">
-                        <label for="editTeras" class="col-sm-5 col-form-label">TERAS</label>
+                        <label for="teras" class="col-sm-5 col-form-label">Teras</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editTeras" name="teras" class="form-control" required>
+                            <select id="editTeras" name="teras_id" class="form-select" required>
+                                @foreach ($teras as $teras)
+                                    <option value="{{ $teras->id }}">{{ $teras->teras }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
-                        <label for="editSO" class="col-sm-5 col-form-label">SO</label>
+                        <label for="SO" class="col-sm-5 col-form-label">SO</label>
                         <div class="col-sm-7">
-                            <input type="text" id="editSO" name="SO" class="form-control" required>
+                            <select id="editSO" name="so_id" class="form-select" required>
+                                @foreach ($so as $so)
+                                    <option value="{{ $so->id }}">{{ $so->SO }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     
@@ -188,10 +197,10 @@
 <script>
     function openEditPopup(addKpi) {
         document.getElementById('editKpiForm').action = `/admin/addKpi/update/${addKpi.id}`;
-        document.getElementById('editTeras').value = addKpi.teras;
-        document.getElementById('editSO').value = addKpi.SO;
+        document.getElementById('editTeras').value = addKpi.teras.teras;
+        document.getElementById('editSO').value = addKpi.so.SO;
         document.getElementById('editNegeri').value = addKpi.negeri;
-        document.getElementById('editPemilik').value = addKpi.users_id;
+        document.getElementById('editPemilik').value = addKpi.user.name;
         document.getElementById('editPernyataanKpi').value = addKpi.pernyataan_kpi;
         document.getElementById('editSasaran').value = addKpi.sasaran;
         document.getElementById('editJenisSasaran').value = addKpi.jenis_sasaran;

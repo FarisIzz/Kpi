@@ -20,18 +20,27 @@
                 <form action="{{ route('kpi.store') }}" method="POST">
                     @csrf
                     <div class="row mb-3">
-                        <label for="teras" class="col-sm-5 col-form-label">TERAS</label>
+                        <label for="teras" class="col-sm-5 col-form-label">Teras</label>
                         <div class="col-sm-7">
-                            <input type="text" id="addTeras" name="teras" class="form-control" required>
+                            <select id="addTeras" name="teras_id" class="form-select" required>
+                                @foreach ($teras as $teras)
+                                    <option value="{{ $teras->id }}">{{ $teras->teras }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <label for="SO" class="col-sm-5 col-form-label">SO</label>
                         <div class="col-sm-7">
-                            <input type="text" id="addSO" name="SO" class="form-control" required>
+                            <select id="addSo" name="so_id" class="form-select" required>
+                                @foreach ($so as $so)
+                                    <option value="{{ $so->id }}">{{ $so->SO }}</option>   
+                                @endforeach
+                            </select>
                         </div>
                     </div>
+                    
                     
                     <div class="row mb-3">
                         <label for="addNegeri" class="col-sm-5 col-form-label">NEGERI</label>

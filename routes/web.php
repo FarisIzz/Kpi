@@ -8,7 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AddKpiController;
 use App\Http\Controllers\UserKpiController;
 use App\Http\Controllers\PermissionController;
-
+use App\Http\Controllers\SoController;
+use App\Http\Controllers\TerasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,61 +60,24 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('AddKPI/{AddKPI}/edit', [AddKpiController::class, 'edit'])->name('kpi.edit');
     Route::delete('/admin/Kpi/IndexKPI/{addKpi}', [AddKpiController::class, 'destroy'])->name('kpi.destroy');
     Route::put('/admin/addKpi/update/{id}', [AddKpiController::class, 'update'])->name('kpi.update');
+
+    //crud teras 
+    Route::resource('teras', TerasController::class);
+    Route::get('teras/{terasID}/delete', [TerasController::class, 'destroy']);
+
+    //crud so 
+    Route::resource('so', SoController::class);
+    Route::get('so/{soID}/delete', [SoController::class, 'destroy']);
 });
 
 // ===================== USER ======================
-// Route::group(['middleware' => ['role:user']], function () {
-//     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
-//     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
-//     Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
-//     Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
-// });
-
-// Route::middleware(['auth', 'checkKpiOwner'])->group(function () {
-//     Route::get('add_kpi/{add_kpi}', [UserKpiController::class, 'show'])->name('user.kpi.input');
-//     // Tambahkan rute lain yang memerlukan pemeriksaan pemilik KPI di sini...
-// });
-
 Route::middleware(['role:user'])->group(function () {
     Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
-    // Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
     Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
     Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'index'])->name('user.kpi.input');
 });
 
-// Route::middleware(['auth'])->group(function () {
-//     Route::middleware(['role:user'])->group(function () {
-//         Route::put('/user/addKpi/update/{id}', [UserKpiController::class, 'update'])->name('user.update');
-//         Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
-//         // Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'inputForm'])->name('user.kpi.input');
-//         Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
-//         Route::get('/userdashboard', [UserKpiController::class, 'index'])->name('user.kpi.input');
-//     });
-
-//     // Route::middleware(['checkKpiOwner'])->group(function () {
-//     //     Route::get('add_kpi/{add_kpi}', [UserKpiController::class, 'show']);
-//     // });
-// });
-
-
 // ===================== LOGOUT ======================
 Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-// Route::get('KeselamatanKoreksional/PengurusanBanduan', [PengurusanBanduanController::class, 'index']);
-// Route::get('KeselamatanKoreksional/TahananRadikal', [TahananRadikalController::class, 'index']);
-// Route::get('KeselamatanKoreksional/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index']);
-
-// Admin can access
-// Route::get('/admin/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index'])->middleware('admin')->name('admin.KeselamatanInteligen');
-// Route::get('/admin/PengurusanBanduan', [PengurusanBanduanController::class, 'index'])->middleware('admin')->name('admin.PengurusanBanduan');
-// Route::get('/admin/TahananRadikal', [TahananRadikalController::class, 'index'])->middleware('admin')->name('admin.TahananRadikal');
-
-// //User can access
-// Route::get('/user/dashboard', [InstitutionController::class, 'index'])->middleware('user')->name('user.dashboard');
-// Route::get('/user/KeselamatanInteligen', [KeselamatanInteligenController::class, 'index'])->middleware('user')->name('user.KeselamatanInteligen');
-// Route::get('/user/PengurusanBanduan', [PengurusanBanduanController::class, 'index'])->middleware('user')->name('user.PengurusanBanduan');
-// Route::get('/user/TahananRadikal', [TahananRadikalController::class, 'index'])->middleware('user')->name('user.TahananRadikal');
-
 

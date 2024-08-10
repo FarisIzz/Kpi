@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <script>
+     <script>
         document.getElementById('togglePassword').addEventListener('click', function () {
             var passwordField = document.getElementById('password');
             var eyeIconOpen = document.getElementById('eyeIconOpen');

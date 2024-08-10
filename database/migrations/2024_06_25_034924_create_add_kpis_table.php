@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('add_kpis', function (Blueprint $table) {
             $table->id();
             $table->integer('bil')->nullable();
-            $table->string('teras');
-            $table->string('SO'); 
+            $table->unsignedBigInteger('teras_id');
+            $table->unsignedBigInteger('so_id'); 
             $table->string('negeri'); 
             // $table->string('pemilik'); 
             $table->unsignedBigInteger('user_id');

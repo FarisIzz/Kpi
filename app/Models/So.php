@@ -9,7 +9,7 @@ class So extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['so']; 
+    protected $fillable = ['SO']; 
 
     public function addKpis()
     {
