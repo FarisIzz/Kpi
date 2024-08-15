@@ -9,22 +9,44 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    // Menampilkan senarai pengguna dengan fungsi carian dan penapis peranan
+    public function index(Request $request)
     {
-        $users = User::get();
+        $search = $request->input('search');
+        $role = $request->input('role');
+
+        $users = User::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                             ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->when($role, function ($query, $role) {
+                return $query->whereHas('roles', function ($query) use ($role) {
+                    $query->where('name', $role);
+                });
+            })
+            ->get();
+
+        $roles = Role::all()->pluck('name'); // Dapatkan senarai peranan untuk dropdown
+
         return view('superAdmin.user.index', [
             'users' => $users,
+            'roles' => $roles,
         ]);
     }
 
-    public function create(){
-        $roles = Role::pluck('name','name')->all();
+    // Menampilkan borang untuk membuat pengguna baharu
+    public function create()
+    {
+        $roles = Role::pluck('name', 'name')->all();
         return view('superAdmin.user.create', [
             'roles' => $roles
         ]);
     }
 
-    public function store(Request $request){
+    // Menyimpan pengguna baharu ke dalam pangkalan data
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'email'=> 'required|max:255|unique:users,email',
@@ -33,9 +55,9 @@ class UserController extends Controller
         ]);
 
         $user = User::create([
-                        'name' => $request->name,
-                        'email' => $request->email,
-                        'password'=> Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password'=> Hash::make($request->password),
         ]);
 
         $user->syncRoles($request->roles);
@@ -43,9 +65,10 @@ class UserController extends Controller
         return redirect('/users')->with("status", "User created successfully with roles");
     }
 
-    public function edit(User $user){
-
-        $roles = Role::pluck('name','name')->all();
+    // Menampilkan borang untuk mengedit pengguna
+    public function edit(User $user)
+    {
+        $roles = Role::pluck('name', 'name')->all();
         $userRoles = $user->roles->pluck('name', 'name')->all();
         return view('superAdmin.user.edit', [
             'user' => $user,
@@ -54,7 +77,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user){
+    // Mengemaskini maklumat pengguna
+    public function update(Request $request, User $user)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'nullable|string|min:8|max:20',
@@ -66,24 +91,22 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
-        if(!empty($request->password))
-        {
-            $data += [
-                'password'=> Hash::make($request->password),
-            ];
+        if (!empty($request->password)) {
+            $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
         $user->syncRoles($request->roles);
 
         return redirect('/users')->with("status", "User updated successfully with the roles");
-        
     }
 
-    public function destroy($userId){
-        $user = User::findOrfail($userId);
+    // Memadam pengguna dari pangkalan data
+    public function destroy($userId)
+    {
+        $user = User::findOrFail($userId);
         $user->delete();
 
-        return redirect('/users')->with("status", "User delete successfully with the roles");
+        return redirect('/users')->with("status", "User deleted successfully");
     }
 }

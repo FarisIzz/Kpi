@@ -38,7 +38,7 @@
                         <div class="input-group mb-3">
                             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required autocomplete="off">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" id="togglePassword">
                                     <svg id="eyeIconOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16" style="display: none;">
                                         <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 3a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                                         <path d="M8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
