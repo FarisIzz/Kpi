@@ -6,10 +6,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AddKpiController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\UserKpiController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\SoController;
 use App\Http\Controllers\TerasController;
+use App\Models\AddKpi;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,8 @@ Route::middleware(['role:user'])->group(function () {
     Route::get('/user/{AddKPI}/edit', [UserKpiController::class, 'edit'])->name('user.edit');
     Route::post('/user/KPI/IndexKPI', [UserKpiController::class, 'storeInput'])->name('user.kpi.storeInput');
     Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'index'])->name('user.kpi.input');
+
+    // Route::get('/user/KPI/IndexKPI', [UserKpiController::class, 'charts'])->name('user.kpi.charts');
 });
 
 // ===================== LOGOUT ======================

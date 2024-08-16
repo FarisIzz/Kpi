@@ -37,7 +37,7 @@
 </style>
 
 @include('sidebar')
-<div class="container">
+<div class="container d-flex flex-column">
     <div class="main">
         <main class="content px-2 py-4">
             <div class="container-fluid">
@@ -72,8 +72,8 @@
                                 @foreach ($addKpis as $addKpi)
                                     <tr>
                                         <td class="text-secondary small-text">{{ $loop->iteration }}</td>
-                                        <td class="small-text">{{ $addKpi->teras }}</td>
-                                        <td class="small-text">{{ $addKpi->SO }}</td>
+                                        <td class="small-text">{{ $addKpi->teras->teras }}</td>
+                                        <td class="small-text">{{ $addKpi->SO->SO }}</td>
                                         <td class="small-text">{{ $addKpi->kpi }}</td>
                                         <td class="small-text kpi-statement">{{ $addKpi->pernyataan_kpi }}</td>
                                         <td class="small-text">{{ $addKpi->sasaran }}</td>
@@ -92,12 +92,36 @@
                                 @endforeach
                             </tbody>
                         </table>
+
+                        <div class="container-sm border mb-5 mt-5">
+                            <div class="row border">
+                                <div class="col border" style="position: relative; height:40vh; width:80vw">
+                                    <canvas id="myChart4"></canvas>
+                                </div>
+                                <div class="col border" style="position: relative; height:40vh; width:80vw">
+                                    <canvas id="myChart5"></canvas>
+                                </div>
+                            </div>
+                            <div class="row border">
+                                <div class="col border">
+                                    <canvas id="myChart1"></canvas>
+                                </div>
+                                <div class="col border">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                                <div class="col border">
+                                    <canvas id="myChart3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
                     </div> 
                 </div>
             </div>
         </main>
     </div>
-</div>      
+</div> 
+
 
 <div class="modal fade" id="editKpi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -178,6 +202,8 @@
     </div>
 </div>
 
+
+
 <script>
     function openEditPopup(addKpi) {
         const modal = new bootstrap.Modal(document.getElementById('editKpi'));
@@ -216,6 +242,159 @@
         const sasaran = document.getElementById('editSasaran').value;
         const peratusPencapaian = calculatePeratusPencapaian(pencapaian, sasaran);
         document.getElementById('editPeratusPencapaian').value = peratusPencapaian.toFixed(2);
+    });
+
+
+    const ctx1 = document.getElementById('myChart1');
+
+    new Chart(ctx1, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+        axis: 'y',
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        fill: false,
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+    }
+    });
+
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+
+    const ctx3 = document.getElementById('myChart3');
+
+    new Chart(ctx3, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
+    });
+
+    // const ctx4 = document.getElementById('myChart4');
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //         function updateChart() {
+    //             
+    //             axios.get(url)
+    //                 .then(function (response) {
+    //                     // Get data from response
+    //                     const labels = response.data.labels;
+    //                     const values = response.data.values;
+
+    //                     // Update the chart with new data
+    //                     myChart.data.labels = labels;
+    //                     myChart.data.datasets[0].data = values;
+    //                     myChart.update();
+    //                 })
+    //                 .catch(function (error) {
+    //                     console.error('Error fetching chart data:', error);
+    //                 });
+    //         }
+
+    // Create the initial chart
+    const ctx4 = document.getElementById('myChart4').getContext('2d');
+    const myChart = new Chart(ctx4, {
+        type: 'bar', // or 'line', 'pie', etc.
+        data: {
+            labels: [], // Initially empty
+            datasets: [{
+                label: 'Your Dataset',
+                data: [], // Initially empty
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+            // Fetch and update the chart with data
+            // updateChart();
+
+            // Optional: Set up a way to refresh the chart periodically or based on user actions
+            // setInterval(updateChart, 5000); // Refresh every 5 seconds
+//         });
+
+
+    const ctx5 = document.getElementById('myChart5');
+
+    new Chart(ctx5, {
+    type: 'pie',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+        y: {
+            beginAtZero: true
+        }
+        }
+    }
     });
 </script>
 

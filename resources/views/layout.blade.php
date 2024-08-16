@@ -9,6 +9,7 @@
   <link rel="icon" href="{{ asset('picture/penjara_logo.png') }}" type="image/png">
   <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
   <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   @yield('body')
