@@ -4,6 +4,8 @@
 
 @include('sidebar')
 
+<link rel="stylesheet" href="{{ asset('css/superAdminRoles.css') }}">
+
 <div class="container">
     <div class="main">
         <main class="content px-2 py-4">
@@ -17,9 +19,9 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Action</th>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,5 +43,6 @@
 
         </main>
     </div>
-</div>   
+</div> 
 
+@endsection
